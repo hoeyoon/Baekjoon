@@ -33,3 +33,54 @@ CTU에서는 특수요원 도현이에게 이 임무를 맡겼다. CTU의 프로
 예제 출력 1 
 00:07:30
 */
+
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+class Time{
+    private:
+        int hour, minute, second;
+
+    public:
+        Time(int h = 0, int m = 0, int s = 0) : hour(h), minute(m), second(s){}
+        
+        int changeSecond() const{
+            return 3600 * hour + 60 * minute + second;
+        }
+        
+        Time operator-(const Time &t) const{
+            int dif = this->changeSecond() - t.changeSecond();
+            if(dif < 0){
+                dif += 60 * 60 * 24;
+            }
+            int h = dif / 3600;
+            int m = (dif % 3600) / 60;
+            int s = dif % 60;
+            return Time(h, m, s);
+        }
+        
+        friend istream& operator>>(istream &is, Time &t){
+            char colon;
+            is >> t.hour >> colon >> t.minute >> colon >> t.second;
+            return is; 
+        }
+
+        void ShowTimeInfo(){
+            printf("%02d:%02d:%02d\n", hour, minute, second);
+        }
+
+        ~Time(){}
+};
+
+int main(){
+    Time Current_t;
+    Time Start_t;
+
+    cin >> Current_t;
+    cin >> Start_t;
+    
+    Time result = Start_t - Current_t;
+    result.ShowTimeInfo();
+    return 0;
+}
