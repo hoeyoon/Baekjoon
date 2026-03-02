@@ -47,3 +47,69 @@ https://www.acmicpc.net/problem/10984
 11 2.3
 11 0.0
 */
+
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+class Course{
+    private:
+        int credit;
+        double grade;
+
+    public:
+        Course(int c = 0, double g = 0.0) : credit(c), grade(g){}
+
+        int getCredit() const{
+            return credit;
+        }
+
+        double getGrade() const{
+            return grade;
+        }
+        
+        friend istream &operator>>(istream &is, Course &ref){
+            is >> ref.credit >> ref.grade;
+            return is;
+        }
+        
+        ~Course(){}
+    };
+    
+class Semester{
+    private:
+        int totalCredit;
+        double totalGradePoint;
+        
+    public:
+        Semester() : totalCredit(0), totalGradePoint(0){}
+        
+        Semester &operator+=(const Course &ref){
+            totalCredit += ref.getCredit();
+            totalGradePoint += ref.getGrade() * ref.getCredit();
+            return *this;
+        }
+        
+        friend ostream &operator<<(ostream &os, const Semester &ref){
+            os << ref.totalCredit << " ";
+            os << fixed << setprecision(1) << ref.totalGradePoint / ref.totalCredit << endl;
+            return os;
+        }
+    };
+    
+int main(){
+    int t;
+    cin >> t;
+    for(int i = 0; i < t; i++){
+        Semester result;
+        int n;
+        cin >> n;
+        for(int j = 0; j < n; j++){
+            Course temp;
+            cin >> temp;
+            result += temp;
+        }
+        cout << result;
+    }
+    return 0;
+}
