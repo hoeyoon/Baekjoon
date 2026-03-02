@@ -18,3 +18,47 @@ https://www.acmicpc.net/problem/2609
 6
 72
 */
+
+#include <iostream>
+using namespace std;
+
+class GcdLcm{
+    private:
+        int n1, n2;
+
+    public:
+        GcdLcm(){}
+        GcdLcm(int a, int b) : n1(a), n2(b){}
+
+        int GetGcd(){
+            int a = n1;
+            int b = n2;
+            while(b > 0){
+                int temp = a % b;
+                a = b;
+                b = temp;
+            }
+            return a;
+        }
+
+        int GetLcm(){
+            return n1 * n2 / GetGcd();
+        }
+
+        friend istream &operator>>(istream &is, GcdLcm &ref){
+            is >> ref.n1 >> ref.n2;
+            return is;
+        }
+
+        friend ostream &operator<<(ostream &os, GcdLcm &ref){
+            os << ref.GetGcd() << endl << ref.GetLcm() << endl;
+            return os;
+        }
+};
+
+int main(){
+    GcdLcm n;
+    cin >> n;
+    cout << n;
+    return 0;
+}
