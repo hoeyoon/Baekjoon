@@ -25,3 +25,19 @@ n이 주어졌을 때, n번째 피보나치 수를 구하는 프로그램을 작
 예제 출력 1 
 55
 */
+
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+
+    long long arr[90] = {0, 1, };
+    for(int i = 2; i <= n; i++){
+        arr[i] = arr[i - 1] + arr[i - 2];
+    }
+
+    cout << arr[n] << endl;
+    return 0;
+}
