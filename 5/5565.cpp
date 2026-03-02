@@ -30,3 +30,20 @@ https://www.acmicpc.net/problem/5565
 예제 출력 1 
 600
 */
+
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n;
+    int arr[9];
+
+    cin >> n;
+
+    for(int i = 0; i < 9; i++){
+        cin >> arr[i];
+        n -= arr[i];
+    }
+    cout << n << endl;
+    return 0;
+}
