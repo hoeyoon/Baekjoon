@@ -50,3 +50,44 @@ N = 2
 예제 출력 1 
 26
 */
+
+#include <iostream>
+using namespace std;
+
+class School{
+    private:
+        int student;
+        int apple;
+
+    public:
+        School(int s = 0, int a = 0) : student(s), apple(a){}
+
+        int remainingApple(){
+            return apple % student;
+        }
+
+        friend istream &operator>>(istream &is, School &ref){
+            is >> ref.student >> ref.apple;
+            return is;
+        }
+
+        ~School(){}
+};
+
+int main(){
+    int n;
+    cin >> n;
+
+    School arr[n];
+    for(int i = 0; i < n; i++){
+        cin >> arr[i];
+    }
+    
+    int totalRemaining = 0;
+    for(int i = 0; i < n; i++){
+        totalRemaining += arr[i].remainingApple();
+    }
+
+    cout << totalRemaining << endl;
+    return 0;
+}
