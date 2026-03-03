@@ -31,3 +31,21 @@ https://www.acmicpc.net/problem/2010
 예제 출력 2 
 12
 */
+
+#include <iostream>
+using namespace std;
+
+int main(){
+    int n;
+    cin >> n;
+
+    int count = 0;
+
+    for(int i = 0; i < n; i++){
+        int c;
+        cin >> c;
+        count += c;
+    }
+    cout << count - (n - 1) << endl;
+    return 0;
+}
