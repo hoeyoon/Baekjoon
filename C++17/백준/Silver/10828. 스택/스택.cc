@@ -1,48 +1,69 @@
-#include <iostream>
+#include <stdio.h>
 #include <string.h>
-#include <stack>
-using namespace std;
+
+#define MAX_STACK_SIZE 10001
+
+int stack[MAX_STACK_SIZE];
+int idx = -1;
+
+void push(int x);
+int pop();
+int size();
+int empty();
+int top();
+
+void push(int x){
+    if(idx == MAX_STACK_SIZE - 1){
+        return;
+    }
+    stack[++idx] = x;
+}
+
+int pop(){
+    if(empty()){
+        return -1;
+    }
+    return stack[idx--];
+}
+
+int size(){
+    return idx + 1;
+}
+
+int empty(){
+    return idx == -1;
+}
+
+int top(){
+    if(empty()){
+        return -1;
+    }
+    return stack[idx];
+}
 
 int main(){
     int n;
-    cin >> n;
-    stack<int> s;
-    for(int i = 0; i < n; i++){
-        string str;
-        cin >> str;
+    scanf("%d", &n);
 
-        if(str == "push"){
-            int n;
-            cin >> n;
-            s.push(n);
+    for(int i = 0; i < n; i++){
+        char str[6];
+        scanf("%s", str);
+        if(strcmp(str, "push") == 0){
+            int x;
+            scanf("%d", &x);
+            push(x);
         }
-        else if(str == "pop"){
-            if(!s.empty()){
-                cout << s.top() << endl;
-                s.pop();
-            }
-            else{
-                cout << -1 << endl;
-            }
+        else if(strcmp(str, "pop") == 0){
+            printf("%d\n", pop());
         }
-        else if(str == "size"){
-            cout << s.size() << endl;
+        else if(strcmp(str, "size") == 0){
+            printf("%d\n", size());
         }
-        else if(str == "empty"){
-            if(s.empty()){
-                cout << 1 << endl;
-            }
-            else{
-                cout << 0 << endl;
-            }
+        else if(strcmp(str, "empty") == 0){
+            printf("%d\n", empty());
         }
-        else if(str == "top"){
-            if(!s.empty()){
-                cout << s.top() << endl;
-            }
-            else{
-                cout << -1 << endl;
-            }
+        else if(strcmp(str, "top") == 0){
+            printf("%d\n", top());
         }
     }
     return 0;
